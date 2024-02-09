@@ -3,6 +3,8 @@ package com.example.tudum.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+// Data Model
+
 
 @Entity
 data class Task(
