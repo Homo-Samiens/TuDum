@@ -1,6 +1,11 @@
 package com.example.tudum.ui.theme.todo_list
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.BottomSheetScaffold
@@ -13,11 +18,13 @@ import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tudum.Util.UiEvent
 
-@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TodoScreen(
     onNavigate: (UiEvent.Navigate) -> Unit,
@@ -55,6 +62,23 @@ fun TodoScreen(
                 )
             }
         }
-    ) {}
+    ) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize()
+        ){
+            items(todos.value){ todo ->
+                TodoItem(
+                    todo = todo,
+                    onEvent = viewModel::onEvent,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .clickable {
+                            viewModel.onEvent(TodoListEvent.onTodoClick(todo))
+                        }
+                        .padding(16.dp)
+                )
+            }
+        }
+    }
 
 }
