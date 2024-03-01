@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
+import com.example.tudum.Todo
 import kotlinx.coroutines.flow.Flow
 
 //DAO
@@ -12,16 +13,15 @@ import kotlinx.coroutines.flow.Flow
 interface Dao {
 
     @Upsert
-    suspend fun upsertTask(task: Task)
+    suspend fun upsertTodo(todo: Todo)
 
     @Delete
-    suspend fun deleteTask(task: Task)
+    suspend fun deleteTodo(todo: Todo)
 
-    @Query("SELECT * FROM Task WHERE id = :id")
-    suspend fun getTaskById(id: Int): Task?
+    @Query("SELECT * FROM Todo WHERE id = :id")
+    suspend fun getTodoById(id: Int): Todo?
 
-
-    @Query("SELECT * FROM Task")
-    fun getTask(): Flow<List<Task>>
+    @Query("SELECT * FROM Todo")
+    fun getTodo(): Flow<List<com.example.tudum.data.Todo>>
 
 }

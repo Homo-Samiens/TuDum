@@ -1,13 +1,13 @@
 package com.example.tudum.ui.theme.todo_list
 
-import com.example.tudum.data.Task
+import com.example.tudum.data.Todo
 
 sealed class TodoListEvent {
 
-    data class DeleteTask(val task: Task): TodoListEvent()
-    data class OnDoneChange(val task: Task, val isDone: Boolean): TodoListEvent()
-    object onUndoDeleteClick: TodoListEvent()
-    data class onTodoClick(val task: Task): TodoListEvent()
-    object OnAddTaskClick: TodoListEvent()
+    data class OnDeleteTodoClick(val todo: Todo): TodoListEvent()
+    data class OnDoneChange(val todo: Todo, val isDone: Boolean): TodoListEvent()
+    data class OnTodoClick(val todo: Todo): TodoListEvent()
+    object OnUndoDeleteClick: TodoListEvent()
+    object OnAddTodoClick: TodoListEvent()
 
 }

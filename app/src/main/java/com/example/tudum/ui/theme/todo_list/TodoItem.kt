@@ -18,11 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.tudum.data.Task
+import com.example.tudum.data.Todo
 
 @Composable
 fun TodoItem(
-    todo: Task,
+    todo: Todo,
     onEvent: (TodoListEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -44,7 +44,7 @@ fun TodoItem(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(onClick = {
-                    onEvent(TodoListEvent.DeleteTask(todo))
+                    onEvent(TodoListEvent.OnDeleteTodoClick(todo))
                 }) {
                     Icon(
                         imageVector = Icons.Default.Delete,

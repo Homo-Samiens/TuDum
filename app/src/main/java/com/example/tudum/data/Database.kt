@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase
 //Database
 
 @Database(
-    entities = [Task::class],
+    entities = [Todo::class],
     version = 1
 )
 

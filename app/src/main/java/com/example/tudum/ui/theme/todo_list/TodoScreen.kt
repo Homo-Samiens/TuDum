@@ -12,7 +12,6 @@ import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
@@ -41,7 +40,7 @@ fun TodoScreen(
                         actionLabel = event.action
                     )
                     if(result == SnackbarResult.ActionPerformed){
-                        viewModel.onEvent(TodoListEvent.onUndoDeleteClick)
+                        viewModel.onEvent(TodoListEvent.OnUndoDeleteClick)
                     }
                 }
                 is UiEvent.Navigate -> onNavigate(event)
@@ -50,17 +49,17 @@ fun TodoScreen(
         }
     }
 
-    Scaffold(
+    BottomSheetScaffold(
         scaffoldState = scaffoldState,
-        floatingActionButton = {
-            FloatingActionButton(onClick = {
-                viewModel.onEvent(TodoListEvent.OnAddTaskClick)
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Add"
-                )
-            }
+        sheetContent = {
+                FloatingActionButton(onClick = {
+                    viewModel.onEvent(TodoListEvent.OnAddTodoClick)
+                }) {
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add"
+                    )
+                }
         }
     ) {
         LazyColumn(
@@ -73,7 +72,7 @@ fun TodoScreen(
                     modifier = Modifier
                         .fillMaxSize()
                         .clickable {
-                            viewModel.onEvent(TodoListEvent.onTodoClick(todo))
+                            viewModel.onEvent(TodoListEvent.OnTodoClick(todo))
                         }
                         .padding(16.dp)
                 )

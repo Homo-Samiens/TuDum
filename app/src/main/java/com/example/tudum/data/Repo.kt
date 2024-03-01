@@ -1,19 +1,16 @@
 package com.example.tudum.data
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Query
-import androidx.room.Upsert
+import com.example.tudum.Todo
 import kotlinx.coroutines.flow.Flow
 
 interface Repo {
 
-        suspend fun upsertTask(task: Task)
+        suspend fun upsertTodo(todo: Todo)
 
-        suspend fun deleteTask(task: Task)
+        suspend fun deleteTodo(todo: Todo)
 
-        suspend fun getTaskById(id: Int): Task?
+        suspend fun getTodoById(id: Int): Todo?
 
-        fun getTask(): Flow<List<Task>>
+        fun getTodo(): Flow<List<com.example.tudum.data.Todo>>
 
 }

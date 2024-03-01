@@ -2,10 +2,11 @@ package com.example.tudum.ui.theme.todo_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.tudum.Todo
 import com.example.tudum.Util.Routes
 import com.example.tudum.Util.UiEvent
 import com.example.tudum.data.Repo
-import com.example.tudum.data.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -17,50 +18,46 @@ class TodoListViewModel @Inject constructor(
     private val repository: Repo
 ): ViewModel() {
 
-    val todos = repository.getTask()
+    val todos = repository.getTodo()
 
     private val _uiEvent = Channel<UiEvent>()
     val uiEvent = _uiEvent.receiveAsFlow()
 
-    private var deleteTask: Task? = null
+    private var deleteTodo: Todo? = null
 
     fun onEvent(event: TodoListEvent){
         when(event){
-
-            is TodoListEvent.onTodoClick -> {
-                sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TODO + "?todoId=${event.task.id}"))
+            is TodoListEvent.OnTodoClick -> {
+                sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TODO + "?todoId=${event.todo.id}"))
             }
 
-            is TodoListEvent.OnAddTaskClick -> {
+            is TodoListEvent.OnAddTodoClick -> {
                 sendUiEvent(UiEvent.Navigate(Routes.ADD_EDIT_TODO))
             }
 
-            is TodoListEvent.onUndoDeleteClick -> {
-                deleteTask?.let { task ->
+            is TodoListEvent.OnUndoDeleteClick -> {
+                deleteTodo.let{ todo ->
                     viewModelScope.launch {
-                        repository.upsertTask(task)
+                        if (todo != null) {
+                            repository.upsertTodo(todo)
+                        }
                     }
                 }
             }
 
-            is TodoListEvent.DeleteTask -> {
+            is TodoListEvent.OnDeleteTodoClick -> {
                 viewModelScope.launch {
-                    repository.deleteTask(event.task)
+                    deleteTodo = event.todo
+                    repository.deleteTodo(event.todo)
                     sendUiEvent(UiEvent.ShowSnackbar(
-                        message = "Task Deleted",
-                        action = "undo"
+                        message = "Todo Deleted",
+                        action = "Undo"
                     ))
                 }
             }
 
             is TodoListEvent.OnDoneChange -> {
-                viewModelScope.launch {
-                    repository.upsertTask(
-                        event.task.copy(
-                            isDone = event.isDone
-                        )
-                    )
-                }
+                TODO()
             }
 
         }
