@@ -2,11 +2,10 @@ package com.example.tudum.ui.theme.todo_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tudum.Todo
 import com.example.tudum.Util.Routes
 import com.example.tudum.Util.UiEvent
 import com.example.tudum.data.Repo
+import com.example.tudum.data.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
@@ -57,7 +56,13 @@ class TodoListViewModel @Inject constructor(
             }
 
             is TodoListEvent.OnDoneChange -> {
-                TODO()
+                viewModelScope.launch {
+                    repository.upsertTodo(
+                        event.todo.copy(
+                            isDone = event.isDone
+                        )
+                    )
+                }
             }
 
         }

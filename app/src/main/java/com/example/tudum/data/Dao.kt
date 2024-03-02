@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Upsert
-import com.example.tudum.Todo
 import kotlinx.coroutines.flow.Flow
 
 //DAO
@@ -22,6 +21,6 @@ interface Dao {
     suspend fun getTodoById(id: Int): Todo?
 
     @Query("SELECT * FROM Todo")
-    fun getTodo(): Flow<List<com.example.tudum.data.Todo>>
+    fun getTodo(): Flow<List<Todo>>
 
 }

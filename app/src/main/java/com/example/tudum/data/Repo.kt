@@ -1,6 +1,5 @@
 package com.example.tudum.data
 
-import com.example.tudum.Todo
 import kotlinx.coroutines.flow.Flow
 
 interface Repo {
@@ -11,6 +10,6 @@ interface Repo {
 
         suspend fun getTodoById(id: Int): Todo?
 
-        fun getTodo(): Flow<List<com.example.tudum.data.Todo>>
+        fun getTodo(): Flow<List<Todo>>
 
 }

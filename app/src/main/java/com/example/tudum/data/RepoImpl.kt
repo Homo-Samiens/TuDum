@@ -1,6 +1,5 @@
 package com.example.tudum.data
 
-import com.example.tudum.Todo
 import kotlinx.coroutines.flow.Flow
 
 class RepoImpl(
@@ -19,7 +18,7 @@ class RepoImpl(
         return dao.getTodoById(id)
     }
 
-    override fun getTodo(): Flow<List<com.example.tudum.data.Todo>> {
+    override fun getTodo(): Flow<List<Todo>> {
         return dao.getTodo()
     }
 }
