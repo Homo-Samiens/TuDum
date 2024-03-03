@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.rememberBottomSheetScaffoldState
@@ -19,6 +20,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tudum.Util.UiEvent
@@ -67,8 +69,9 @@ fun TodoScreen(
                         .clickable {
                             viewModel.onEvent(TodoListEvent.OnTodoClick(todo))
                         }
-                        .padding(8.dp)
+                        .padding(6.dp),
                 )
+                HorizontalDivider(color = Color.Gray, thickness = 1.dp)
             }
         }
 
