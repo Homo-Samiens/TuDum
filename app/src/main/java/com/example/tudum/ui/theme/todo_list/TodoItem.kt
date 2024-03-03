@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -31,7 +32,9 @@ fun TodoItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .padding(8.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Row(
@@ -39,10 +42,12 @@ fun TodoItem(
             ) {
                 Text(
                     text = todo.title,
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+
+                Spacer(modifier = Modifier.width(10.dp))
+
                 IconButton(onClick = {
                     onEvent(TodoListEvent.OnDeleteTodoClick(todo))
                 }) {
@@ -51,16 +56,21 @@ fun TodoItem(
                         contentDescription = "Delete"
                     )
                 }
-                todo.description?.let { 
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = it)
-                }
+
             }
-            Checkbox(
-                checked = todo.isDone,
-                onCheckedChange = { isChecked ->
-                    onEvent(TodoListEvent.OnDoneChange(todo, isChecked))
-                })
+
+            todo.description?.let {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(text = it)
+            }
+
         }
+
+        Checkbox(
+            checked = todo.isDone,
+            onCheckedChange = { isChecked ->
+                onEvent(TodoListEvent.OnDoneChange(todo, isChecked))
+            })
+
     }
 }

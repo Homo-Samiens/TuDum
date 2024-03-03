@@ -1,5 +1,6 @@
 package com.example.tudum.ui.theme.add_edit_todo
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -17,6 +17,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -30,40 +31,26 @@ fun AddEditTodoScreen(
 ){
     val scaffoldState = rememberBottomSheetScaffoldState()
 
-    LaunchedEffect(key1 = true){
-        viewModel.uiEvent.collect{ event ->
-            when(event){
-                is UiEvent.PopBackStack -> onPopBackStack()
-                is UiEvent.ShowSnackbar -> {
-                    scaffoldState.snackbarHostState.showSnackbar(
-                        message = event.message,
-                        actionLabel = event.action
-                    )
-                }
-                else -> Unit
-            }
-        }
-    }
+    Box(modifier = Modifier.fillMaxSize()){
 
-    BottomSheetScaffold(
-        scaffoldState = scaffoldState,
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        sheetContent = {
-            FloatingActionButton(onClick = {
-                viewModel.onEvent(AddEditTodoEvent.OnSaveTodoClick)
-            }) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = "Save"
-                )
+        LaunchedEffect(key1 = true){
+            viewModel.uiEvent.collect{ event ->
+                when(event){
+                    is UiEvent.PopBackStack -> onPopBackStack()
+                    is UiEvent.ShowSnackbar -> {
+                        scaffoldState.snackbarHostState.showSnackbar(
+                            message = event.message,
+                            actionLabel = event.action
+                        )
+                    }
+                    else -> Unit
+                }
             }
         }
-    ) {
 
         Column(
             modifier = Modifier.fillMaxSize()
+                .padding(10.dp, top = 20.dp, 10.dp, 10.dp)
         ) {
 
             TextField(
@@ -77,7 +64,7 @@ fun AddEditTodoScreen(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             TextField(
                 value = viewModel.description,
@@ -90,9 +77,23 @@ fun AddEditTodoScreen(
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = false,
                 maxLines = 5
-                )
+            )
 
         }
 
+        FloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 25.dp, end = 20.dp),
+            onClick = {
+            viewModel.onEvent(AddEditTodoEvent.OnSaveTodoClick)
+        }) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = "Save"
+            )
+        }
+
     }
+
 }
