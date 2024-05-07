@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.tudum.Util.UiEvent
+import com.example.tudum.util.UiEvent
 import com.example.tudum.data.Repo
 import com.example.tudum.data.Todo
 import dagger.hilt.android.lifecycle.HiltViewModel

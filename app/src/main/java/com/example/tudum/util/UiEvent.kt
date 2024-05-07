@@ -1,4 +1,4 @@
-package com.example.tudum.Util
+package com.example.tudum.util
 
 sealed class UiEvent {
 

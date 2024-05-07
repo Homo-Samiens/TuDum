@@ -21,7 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.tudum.Util.UiEvent
+import com.example.tudum.util.UiEvent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

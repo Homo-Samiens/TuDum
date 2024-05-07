@@ -1,4 +1,4 @@
-package com.example.tudum.Util
+package com.example.tudum.util
 
 object Routes {
     const val TODO_LIST = "todo_list"

@@ -11,9 +11,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.tudum.Util.Routes
 import com.example.tudum.ui.theme.add_edit_todo.AddEditTodoScreen
 import com.example.tudum.ui.theme.todo_list.TodoScreen
+import com.example.tudum.util.Routes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
